@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unity Ads Demo</title>
+    <script type="text/javascript">
+        var unityAdsConfig = {
+            gameId: "5814193",
+            interstitialId: "InterstitialAdUnit",
+            bannerId: "ban1",
+            testMode: true // Set to false when publishing live
+        };
+
+        function loadUnityAds() {
+            var script = document.createElement("script");
+            script.src = "https://web.ads.unity3d.com/static/js/unityads.load.js";
+            script.async = true;
+            script.onload = function () {
+                UnityAds.initialize(unityAdsConfig.gameId, unityAdsConfig.testMode);
+            };
+            document.head.appendChild(script);
+        }
+
+        function showInterstitialAd() {
+            if (UnityAds && UnityAds.isReady(unityAdsConfig.interstitialId)) {
+                UnityAds.show(unityAdsConfig.interstitialId);
+            } else {
+                alert("Interstitial ad is not ready yet.");
+            }
+        }
+
+        function showBannerAd() {
+            if (UnityAds && UnityAds.isReady(unityAdsConfig.bannerId)) {
+                UnityAds.show(unityAdsConfig.bannerId);
+            } else {
+                alert("Banner ad is not ready yet.");
+            }
+        }
+
+        window.onload = function () {
+            loadUnityAds();
+            setTimeout(showBannerAd, 3000); // Load banner ad after 3 seconds
+        };
+    </script>
+</head>
+<body>
+    <h1>Unity Ads Demo</h1>
+    <button onclick="showInterstitialAd()">Show Interstitial Ad</button>
+    <div id="banner-ad" style="width: 320px; height: 50px; margin-top: 20px;"></div>
+</body>
+</html>
+
